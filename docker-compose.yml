@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  invoice-challenge:
+    build: .
+    ports:
+    - "5000:80"
+    volumes:
+      - .:/usr/src/app
+    links:
+      - db
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
