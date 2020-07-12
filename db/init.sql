@@ -1,22 +1,20 @@
 CREATE DATABASE invoice_challenge;
 use invoice_challenge;
 
--- Id: UUID,
--- Document: STRING,
--- Description: STRING,
--- Amount: CURRENCY,
--- ReferenceMonth: DATETIME,
--- ReferenceYear: INT,
--- CreatedAt: DATETIME,
--- IsActive: BOOL,
--- DeactiveAt: DATETIME
 CREATE TABLE invoice (
-  document VARCHAR(40),
-  description VARCHAR(200)
+  id BINARY(16) PRIMARY KEY,
+  document VARCHAR(255),
+  description VARCHAR(255),
+  amount DECIMAL(19, 2),
+  referenceMonth DATETIME,
+  referenceYear INT,
+  createdAt DATETIME NOT NULL DEFAULT NOW(),
+  isActive BOOLEAN NOT NULL DEFAULT true,
+  deactiveAt DATETIME
 );
 
 INSERT INTO invoice
-  (document, description)
+  (id, document, description, amount, referenceMonth, referenceYear)
 VALUES
-  ('MC-Donalds', 'fast food'),
-  ('C&A', 'general store');
+  (UNHEX(REPLACE(UUID(), "-", "")), 'MC-Donalds', 'fast food', 100.24, NOW(), MONTH(NOW())),
+  (UNHEX(REPLACE(UUID(), "-", "")), 'C&A', 'general store', 1000222333.99, NOW(), MONTH(NOW()));
