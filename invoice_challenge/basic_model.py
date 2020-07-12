@@ -1,7 +1,6 @@
 from typing import List, Dict
 import mysql.connector
 import os
-import json
 import datetime, decimal, uuid
 
 class BasicModel:
@@ -38,7 +37,7 @@ class BasicModel:
             json_data.append(dict(zip(row_headers, row_values)))
         cursor.close()
         connection.close()
-        return json.dumps({'data': json_data})
+        return json_data
 
 if __name__ == '__main__':
     basic_model = BasicModel()

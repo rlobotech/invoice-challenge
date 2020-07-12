@@ -1,4 +1,4 @@
-from basic_model import BasicModel
+from invoice_challenge.basic_model import BasicModel
 
 class InvoiceModel(BasicModel):
     def __init__(self):
