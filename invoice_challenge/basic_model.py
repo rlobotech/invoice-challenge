@@ -55,6 +55,12 @@ class BasicModel:
         connection.close()
         return json_data
 
+    def delete_item(self, table, id):
+        connection = self.connect_to_db()
+        cursor = connection.cursor()
+        cursor.execute(f"UPDATE {table} SET isActive = false, deactiveAt = NOW() where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
+        connection.commit()
+
 if __name__ == '__main__':
     basic_model = BasicModel()
-    print(basic_model.read_item('invoice', "149d6710-c3d4-11ea-a09e-0242ac120002"))
+    print(basic_model.delete_item('invoice', "149d6710-c3d4-11ea-a09e-0242ac120002"))

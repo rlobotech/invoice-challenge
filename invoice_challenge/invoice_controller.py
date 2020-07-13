@@ -18,7 +18,7 @@ class Invoice(Resource):
 
     def delete(self, id):
         invoice_model = InvoiceModel()
-        data_resp = invoice_model.read_item(id)
+        invoice_model.delete_item(id)
         return '', 204
 
 class InvoiceCollection(Resource):
