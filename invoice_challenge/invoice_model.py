@@ -11,7 +11,8 @@ class InvoiceModel(BasicModel):
     def read_items(self):
         return super().read_items(self.item_type)
     
-    # def read_item(self, uuid):
+    def read_item(self, id):
+        return super().read_item(self.item_type, id)
 
     # def create_item(self, hash):
 

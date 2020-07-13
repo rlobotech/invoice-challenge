@@ -11,11 +11,25 @@ def format_response(data, total=0, page_size=100, page=0):
     return formatted_response
 
 class Invoice(Resource):
-    def get(self, query):
-        return {'message': 'success', 'data': 'invoice'}, 200
+    def get(self, id):
+        invoice_model = InvoiceModel()
+        data_resp = invoice_model.read_item(id)
+        return data_resp[0], 200
 
-class InvoiceAll(Resource):
+    def delete(self, id):
+        invoice_model = InvoiceModel()
+        data_resp = invoice_model.read_item(id)
+        return '', 204
+
+class InvoiceCollection(Resource):
     def get(self):
+        invoice_model = InvoiceModel()
+        data_resp = invoice_model.read_items()
+        resp = format_response(data_resp)
+        return resp, 200
+
+class InvoiceCollectionFilterable(Resource):
+    def get(self, query):
         invoice_model = InvoiceModel()
         data_resp = invoice_model.read_items()
         resp = format_response(data_resp)
