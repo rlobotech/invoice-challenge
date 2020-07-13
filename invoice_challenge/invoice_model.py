@@ -18,7 +18,8 @@ class InvoiceModel(BasicModel):
 
     # def create_items(self, hash):
 
-    # def update_item(self, uuid, hash):
+    def update_item(self, id, params):
+        super().update_item(self.table_name, id, params)
 
     def delete_item(self, id):
         super().delete_item(self.table_name, id)

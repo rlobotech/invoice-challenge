@@ -55,6 +55,12 @@ class BasicModel:
         connection.close()
         return json_data
 
+    def update_item(self, table, id, params):
+        connection = self.connect_to_db()
+        cursor = connection.cursor()
+        cursor.execute(f"UPDATE {table} SET {params} where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
+        connection.commit()
+
     def delete_item(self, table, id):
         connection = self.connect_to_db()
         cursor = connection.cursor()
