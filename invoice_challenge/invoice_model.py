@@ -8,15 +8,14 @@ class InvoiceModel(BasicModel):
     def table_name(self):
         return self._table_name
 
+    def create_item(self, params):
+        super().create_item(self.table_name, params)
+
     def read_items(self):
         return super().read_items(self.table_name)
     
     def read_item(self, id):
         return super().read_item(self.table_name, id)
-
-    # def create_item(self, hash):
-
-    # def create_items(self, hash):
 
     def update_item(self, id, params):
         super().update_item(self.table_name, id, params)

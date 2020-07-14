@@ -23,6 +23,19 @@ class BasicModel:
             return str(uuid.UUID(bytes=bytes(value)))
         return value
 
+    def format_json_to_create(self, params):
+        json_list = list(params.items())
+        columns = "(id, "
+        values = "(UNHEX(REPLACE(UUID(), '-', '')), "
+        for key, value in json_list:
+            if(value == None):
+                continue
+            columns += f"{key}, "
+            values += f"'{value}', "
+        columns = columns[:-2] + ")"
+        values = values[:-2] + ")"
+        return columns, values
+
     def format_json_to_update(self, params):
         json_list = list(params.items())
         string_result = ""
@@ -32,6 +45,13 @@ class BasicModel:
             string_result += f"{key} = '{value}', "
         string_result = string_result[:-2]
         return string_result
+
+    def create_item(self, table, params):
+        connection = self.connect_to_db()
+        cursor = connection.cursor()
+        columns, values = self.format_json_to_create(params)
+        cursor.execute(f"INSERT INTO {table} {columns} VALUES {values}")
+        connection.commit()
 
     def read_items(self, table):
         connection = self.connect_to_db()
