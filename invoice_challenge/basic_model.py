@@ -23,6 +23,16 @@ class BasicModel:
             return str(uuid.UUID(bytes=bytes(value)))
         return value
 
+    def format_json_to_update(self, params):
+        json_list = list(params.items())
+        string_result = ""
+        for key, value in json_list:
+            if(value == None):
+                continue
+            string_result += f"{key} = '{value}', "
+        string_result = string_result[:-2]
+        return string_result
+
     def read_items(self, table):
         connection = self.connect_to_db()
         cursor = connection.cursor()
@@ -58,7 +68,8 @@ class BasicModel:
     def update_item(self, table, id, params):
         connection = self.connect_to_db()
         cursor = connection.cursor()
-        cursor.execute(f"UPDATE {table} SET {params} where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
+        params_formated = self.format_json_to_update(params)
+        cursor.execute(f"UPDATE {table} SET {params_formated} where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
         connection.commit()
 
     def delete_item(self, table, id):

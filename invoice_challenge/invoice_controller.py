@@ -29,8 +29,8 @@ class Invoice(Resource):
     def put(self, id):
         invoice_model = InvoiceModel()
         params = parser.parse_args()
-        # invoice_model.update_item(id, params)
-        return {"msg": "Subscriber added", "subscriber_data": params}, 200
+        invoice_model.update_item(id, params)
+        return '', 204
 
     def delete(self, id):
         invoice_model = InvoiceModel()
