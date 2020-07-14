@@ -1,25 +1,27 @@
-from basic_model import BasicModel
+from invoice_challenge.basic_model import BasicModel
 
 class InvoiceModel(BasicModel):
     def __init__(self):
         self._table_name = 'invoice'
 
     @property
-    def item_type(self):
+    def table_name(self):
         return self._table_name
 
+    def create_item(self, params):
+        super().create_item(self.table_name, params)
+
     def read_items(self):
-        return super().read_items(self.item_type)
+        return super().read_items(self.table_name)
     
-    # def read_item(self, uuid):
+    def read_item(self, id):
+        return super().read_item(self.table_name, id)
 
-    # def create_item(self, hash):
+    def update_item(self, id, params):
+        super().update_item(self.table_name, id, params)
 
-    # def create_items(self, hash):
-
-    # def update_item(self, uuid, hash):
-
-    # def delete_item(self, uuid):
+    def delete_item(self, id):
+        super().delete_item(self.table_name, id)
 
 if __name__ == '__main__':
     invoice_model = InvoiceModel()
