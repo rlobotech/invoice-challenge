@@ -45,14 +45,18 @@ class InvoiceCollection(Resource):
       return '', 201
 
     def get(self):
-        invoice_model = InvoiceModel()
-        data_resp = invoice_model.read_items()
-        resp = format_response(data_resp)
-        return resp, 200
+        parser.add_argument('pageSize',       type=int,   location='args')
+        parser.add_argument('page',           type=int,   location='args')
+        parser.add_argument('order_by_desc',  type=str,   location='args')
+        parser.add_argument('order_by_asc',   type=str,   location='args')
 
-class InvoiceCollectionFilterable(Resource):
-    def get(self, query):
         invoice_model = InvoiceModel()
-        data_resp = invoice_model.read_items()
-        resp = format_response(data_resp)
+        params = parser.parse_args()
+        data_resp = invoice_model.read_items(params)
+
+        total = len(data_resp)
+        page_size = params['pageSize'] if params['pageSize'] else 100
+        page = params['page'] if params['page'] else 0
+        resp = format_response(data_resp, total, page_size, page)
+
         return resp, 200

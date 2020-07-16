@@ -53,10 +53,11 @@ class BasicModel:
         cursor.execute(f"INSERT INTO {table} {columns} VALUES {values}")
         connection.commit()
 
-    def read_items(self, table):
+    def read_items(self, table, extra_query):
         connection = self.connect_to_db()
         cursor = connection.cursor()
-        cursor.execute(f"SELECT * FROM {table} where isActive = true")
+        query = f"SELECT * FROM {table} WHERE isActive = true {extra_query}"
+        cursor.execute(query)
         row_headers=[x[0] for x in cursor.description]
         all_rows_data = cursor.fetchall()
         json_data=[]
@@ -72,7 +73,7 @@ class BasicModel:
     def read_item(self, table, id):
         connection = self.connect_to_db()
         cursor = connection.cursor()
-        cursor.execute(f"SELECT * FROM {table} where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
+        cursor.execute(f"SELECT * FROM {table} WHERE id = UNHEX(REPLACE('{id}','-','')) AND isActive = true")
         row_headers=[x[0] for x in cursor.description]
         all_rows_data = cursor.fetchall()
         json_data=[]
@@ -97,7 +98,3 @@ class BasicModel:
         cursor = connection.cursor()
         cursor.execute(f"UPDATE {table} SET isActive = false, deactiveAt = NOW() where id = UNHEX(REPLACE('{id}','-','')) and isActive = true")
         connection.commit()
-
-if __name__ == '__main__':
-    basic_model = BasicModel()
-    print(basic_model.delete_item('invoice', "149d6710-c3d4-11ea-a09e-0242ac120002"))
