@@ -1,5 +1,7 @@
+from flask import json
 from flask_restful import Resource
 from flask_restful.reqparse import RequestParser
+from werkzeug.exceptions import HTTPException
 from invoice_challenge.invoice_model import InvoiceModel
 import invoice_challenge.controller_helper as CH
 
@@ -17,41 +19,36 @@ class Invoice(Resource):
             invoice_model = InvoiceModel()
             data_resp = invoice_model.read_item(id)
             return data_resp, 200
-        except CH.EntityNotFoundError:
-            message = CH.entity_not_found_error_message()
-            status = CH.entity_not_found_error_status()
-            return message, status
+        except HTTPException as e:
+            response = CH.https_exception_response_format(e)
+            return response
         except Exception:
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
             return message, status
 
-    # Check when entity of the given id not exist
     def put(self, id):
         try:
             invoice_model = InvoiceModel()
             params = parser.parse_args()
             invoice_model.update_item(id, params)
             return {}, 204
-        except CH.EntityNotFoundError:
-            message = CH.entity_not_found_error_message()
-            status = CH.entity_not_found_error_status()
-            return message, status
-        except Exception:
+        except HTTPException as e:
+            response = CH.https_exception_response_format(e)
+            return response
+        except Exception as e:
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
             return message, status
 
-    # Check when entity of the given id not exist
     def delete(self, id):
         try:
             invoice_model = InvoiceModel()
             invoice_model.delete_item(id)
             return {}, 204
-        except CH.EntityNotFoundError:
-            message = CH.entity_not_found_error_message()
-            status = CH.entity_not_found_error_status()
-            return message, status
+        except HTTPException as e:
+            response = CH.https_exception_response_format(e)
+            return response
         except Exception:
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
@@ -64,6 +61,9 @@ class InvoiceCollection(Resource):
             params = parser.parse_args()
             invoice_model.create_item(params)
             return {}, 201
+        except HTTPException as e:
+            response = CH.https_exception_response_format(e)
+            return response
         except Exception as e:
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
@@ -82,6 +82,9 @@ class InvoiceCollection(Resource):
 
             formmated_resp = CH.format_get_collection_response(data_resp, params)
             return formmated_resp, 200
+        except HTTPException as e:
+            response = CH.https_exception_response_format(e)
+            return response
         except Exception:
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
