@@ -3,6 +3,7 @@ import invoice_challenge.model_helper as ModelHelper
 
 def format_invoice_query(params):
     query = ""
+
     if(params["document"]):
         query += f" AND document = {params['document']}"
 
