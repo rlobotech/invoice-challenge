@@ -67,7 +67,7 @@ docker-compose up
 ```
 5. **You are ready to go!**
 
-#### Using the API
+## Using the API
 By default, the API server will run on port 5000 (it may be changed on the docker-compose.yml file).
 
 #### Routes
@@ -77,12 +77,12 @@ http://0.0.0.0:5000/api/v1/invoices
 http://0.0.0.0:5000/api/v1/invoices/{id}
 ```
 
-#### Filters, Paging and Sorting
+### Filters, Paging and Sorting
 **Generals Rules:**
   - Start any query with the `?` operator
-  - Any query is splited by the `&` operator
+  - Split query args with the `&` operator
 
-**Filter**
+##### Filter
 In order to filter by a specific column, use the following examples:
 ```zsh
 .../api/v1/table_name?column_a='column_a_value'&column_b='column_b_value'&...
@@ -92,7 +92,7 @@ In order to filter by a specific column, use the following examples:
 **Filter rules:**
   - Any string value should be in 'quotes' or "double quotes"
 
-**Paging**
+##### Paging
 In order to page or limit the page size, use the following examples:
 ```zsh
 .../api/v1/table_name?pageSize=number&page=number
@@ -101,7 +101,7 @@ In order to page or limit the page size, use the following examples:
 .../api/v1/invoices?page=3
 ```
 
-**Sorting**
+##### Sorting
 In order to sorting, use the following examples:
 ```zsh
 .../api/v1/table_name?oder_by_asc=column_a,column_b&order_by_desc=column_c
