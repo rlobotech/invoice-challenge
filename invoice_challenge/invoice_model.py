@@ -1,5 +1,5 @@
 from invoice_challenge.basic_model import BasicModel
-import invoice_challenge.model_helper as ModelHelper
+import invoice_challenge.helpers.model_helper as ModelHelper
 
 def format_invoice_query(params):
     query = ""

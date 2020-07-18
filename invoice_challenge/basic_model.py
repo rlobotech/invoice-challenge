@@ -1,4 +1,4 @@
-import invoice_challenge.model_helper as ModelHelper
+import invoice_challenge.helpers.model_helper as ModelHelper
 import mysql.connector
 import os
 
