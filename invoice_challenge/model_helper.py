@@ -1,3 +1,4 @@
+from typing import Dict
 import datetime, decimal, uuid
 
 def format_generic_query(params, query):
@@ -57,3 +58,15 @@ def format_json_to_update(params):
 
     result = result[:-2]
     return result
+
+def format_read_response_to_json(rows_data, columns_description):
+    row_headers=[x[0] for x in columns_description]
+    json_data=[]
+
+    for row_data in rows_data:
+        row_values = []
+        for value in row_data:
+            row_values.append(format_mysql_values_to_json(value))
+        json_data.append(dict(zip(row_headers, row_values)))
+
+    return json_data
