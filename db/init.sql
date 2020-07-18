@@ -1,7 +1,7 @@
 CREATE DATABASE invoice_challenge;
 use invoice_challenge;
 
-CREATE TABLE invoice (
+CREATE TABLE IF NOT EXISTS invoice (
   id BINARY(16) PRIMARY KEY,
   document VARCHAR(255),
   description VARCHAR(255),
