@@ -16,7 +16,7 @@ def format_invoice_query(params):
 
 class InvoiceModel(BasicModel):
     def __init__(self):
-        self._table_name = 'invoice'
+        self._table_name = "invoice"
 
     @property
     def table_name(self):

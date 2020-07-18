@@ -14,9 +14,9 @@ parser.add_argument("referenceYear",  type=int,   help="Please enter valid Integ
 class Invoice(Resource):
     def get(self, id):
         try:
-          invoice_model = InvoiceModel()
-          data_resp = invoice_model.read_item(id)
-          return data_resp, 200
+            invoice_model = InvoiceModel()
+            data_resp = invoice_model.read_item(id)
+            return data_resp, 200
         except CH.EntityNotFoundError:
             message = CH.entity_not_found_error_message()
             status = CH.entity_not_found_error_status()
@@ -25,7 +25,8 @@ class Invoice(Resource):
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
             return message, status
-# Check when entity of the given id not exist
+
+    # Check when entity of the given id not exist
     def put(self, id):
         try:
             invoice_model = InvoiceModel()
@@ -40,7 +41,8 @@ class Invoice(Resource):
             message = CH.internal_server_error_message()
             status = CH.internal_server_error_status()
             return message, status
-# Check when entity of the given id not exist
+
+    # Check when entity of the given id not exist
     def delete(self, id):
         try:
             invoice_model = InvoiceModel()
@@ -57,22 +59,22 @@ class Invoice(Resource):
 
 class InvoiceCollection(Resource):
     def post(self):
-      try:
-          invoice_model = InvoiceModel()
-          params = parser.parse_args()
-          invoice_model.create_item(params)
-          return {}, 201
-      except Exception as e:
-          message = CH.internal_server_error_message()
-          status = CH.internal_server_error_status()
-          return message, status
+        try:
+            invoice_model = InvoiceModel()
+            params = parser.parse_args()
+            invoice_model.create_item(params)
+            return {}, 201
+        except Exception as e:
+            message = CH.internal_server_error_message()
+            status = CH.internal_server_error_status()
+            return message, status
 
     def get(self):
         try:
-            parser.add_argument('pageSize',       type=int,   location='args')
-            parser.add_argument('page',           type=int,   location='args')
-            parser.add_argument('order_by_desc',  type=str,   location='args')
-            parser.add_argument('order_by_asc',   type=str,   location='args')
+            parser.add_argument("pageSize",       type=int, location="args")
+            parser.add_argument("page",           type=int, location="args")
+            parser.add_argument("order_by_desc",  type=str, location="args")
+            parser.add_argument("order_by_asc",   type=str, location="args")
 
             invoice_model = InvoiceModel()
             params = parser.parse_args()
