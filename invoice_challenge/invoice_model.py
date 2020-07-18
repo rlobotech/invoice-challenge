@@ -1,33 +1,18 @@
 from invoice_challenge.basic_model import BasicModel
+import invoice_challenge.model_helper as ModelHelper
 
-def format_query(params):
-    asw = ""
+def format_invoice_query(params):
+    query = ""
     if(params["document"]):
-        asw += f" AND document = {params['document']}"
+        query += f" AND document = {params['document']}"
 
     if(params["description"]):
-        asw += f" AND description = {params['description']}"
+        query += f" AND description = {params['description']}"
 
     if(params["amount"]):
-        asw += f" AND amount = '{params['amount']}'"
+        query += f" AND amount = '{params['amount']}'"
 
-    if(params['order_by_desc'] or params['order_by_asc']):
-        asw += " ORDER BY"
-        if(params['order_by_desc']):
-            split = params['order_by_desc'].split(",")
-            for s in split:
-                asw += f" {s} DESC,"
-        if(params['order_by_asc']):
-            split = params['order_by_asc'].split(",")
-            for s in split:
-                asw += f" {s} ASC,"
-        asw = asw[:-1]
-
-    limit = params['pageSize'] if params['pageSize'] else 100
-    page = params['page'] if params['page'] else 0
-
-    asw += f" LIMIT {limit} OFFSET {page * limit}"
-    return asw
+    return ModelHelper.format_generic_query(params, query)
 
 class InvoiceModel(BasicModel):
     def __init__(self):
@@ -41,8 +26,8 @@ class InvoiceModel(BasicModel):
         super().create_item(self.table_name, params)
 
     def read_items(self, params):
-        extra_query = format_query(params)
-        return super().read_items(self.table_name, extra_query)
+        query_addition = format_invoice_query(params)
+        return super().read_items(self.table_name, query_addition)
     
     def read_item(self, id):
         return super().read_item(self.table_name, id)

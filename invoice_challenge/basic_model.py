@@ -53,10 +53,10 @@ class BasicModel:
         cursor.execute(f"INSERT INTO {table} {columns} VALUES {values}")
         connection.commit()
 
-    def read_items(self, table, extra_query):
+    def read_items(self, table, query_addition):
         connection = self.connect_to_db()
         cursor = connection.cursor()
-        query = f"SELECT * FROM {table} WHERE isActive = true {extra_query}"
+        query = f"SELECT * FROM {table} WHERE isActive = true {query_addition}"
         cursor.execute(query)
         row_headers=[x[0] for x in cursor.description]
         all_rows_data = cursor.fetchall()
