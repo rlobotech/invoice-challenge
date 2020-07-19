@@ -21,3 +21,8 @@ CREATE TABLE IF NOT EXISTS user (
   isActive BOOLEAN NOT NULL DEFAULT true,
   deactiveAt DATETIME
 );
+
+INSERT INTO user
+  (id, email, password)
+VALUES
+  (UNHEX(REPLACE(UUID(), "-", "")), 'admin@admin', SHA1('admin'));

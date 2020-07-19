@@ -65,25 +65,6 @@ class BasicModel:
             if connection:
                 connection.close()
 
-    def read_item_by_email(self, table, email, password):
-        try:
-            connection = self.connect_to_db()
-            cursor = connection.cursor()
-
-            query = f"SELECT * FROM {table} " \
-                    f"WHERE email = {email} AND password = {password} AND isActive = true"
-            cursor.execute(query)
-
-            columns_description = cursor.description
-            rows_data = cursor.fetchall()
-            json_data = ModelHelper.format_read_response_to_json(rows_data, columns_description)
-            return json_data[0]
-        finally:
-            if cursor:
-                cursor.close()
-            if connection:
-                connection.close()
-
     def update_item(self, table, id, params):
         try:
             connection = self.connect_to_db()

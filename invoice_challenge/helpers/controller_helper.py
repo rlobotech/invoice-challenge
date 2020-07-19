@@ -22,7 +22,7 @@ def check_authentication_token():
 
 def encode_auth_token(user_id):
     payload = {
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=600),
         'iat': datetime.datetime.utcnow(),
         'sub': user_id
     }
