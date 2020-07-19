@@ -1,7 +1,6 @@
 from invoice_challenge.basic_model import BasicModel
 import invoice_challenge.helpers.model_helper as ModelHelper
 import hashlib
-import sys
 
 def format_user_params(params):
     if(params["password"]):

@@ -1,4 +1,5 @@
 from flask import request, session
+from os import environ
 import invoice_challenge.helpers.exception_helper as EH
 import datetime
 import jwt
@@ -28,14 +29,14 @@ def encode_auth_token(user_id):
     }
     auth_token = jwt.encode(
         payload,
-        "very_secreat",
+        environ.get("SECREAT_KEY"),
         algorithm='HS256'
     )
     return auth_token
 
 def decode_auth_token(auth_token):
     try:
-        payload = jwt.decode(auth_token, "very_secreat")
+        payload = jwt.decode(auth_token, environ.get("SECREAT_KEY"))
         return payload['sub']
     except jwt.ExpiredSignatureError:
         raise EH.TokenError('Signature expired. Please log in again.')
