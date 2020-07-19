@@ -17,12 +17,16 @@ def invoice_request_parser():
 class Invoice(Resource):
     @EH.exception_handler
     def get(self, id):
+        CH.check_authentication_token()
+
         invoice_model = InvoiceModel()
         data_resp = invoice_model.read_item(id)
         return data_resp, 200
 
     @EH.exception_handler
     def put(self, id):
+        CH.check_authentication_token()
+
         params = invoice_request_parser().parse_args()
         invoice_model = InvoiceModel()
         invoice_model.update_item(id, params)
@@ -30,6 +34,8 @@ class Invoice(Resource):
 
     @EH.exception_handler
     def delete(self, id):
+        CH.check_authentication_token()
+
         invoice_model = InvoiceModel()
         invoice_model.delete_item(id)
         return {}, 204

@@ -26,5 +26,11 @@ class InvoiceModel(BasicModel):
         query_addition = format_invoice_query(params)
         return super().read_items(self.table_name, query_addition)
     
-    def read_item(self, email, password):
-        return super().read_item_by_email(self.table_name, email, password)
+    def read_item(self, id):
+        return super().read_item(self.table_name, id)
+
+    def update_item(self, id, params):
+        super().update_item(self.table_name, id, params)
+
+    def delete_item(self, id):
+        super().delete_item(self.table_name, id)
