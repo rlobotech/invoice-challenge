@@ -86,13 +86,13 @@ http://localhost:5000/api/v1/login
 #### For route http://localhost:5000/api/v1/login [GET, POST]
 
 ##### Obs:
-  - It is possible to create a user passing as params `email` and `password`.
   - The user table already contains an admin user which:
   - - email: `admin@admin`
   - - password: `admin`
-  - To get the auth token do a POT request on ../api/v1/login route passing as params `email` and `password`.
-  - It is possible to login using the default admin user accessing the ../api/v1/login url.
-  - - This is just for testing the seassion on the URL. By production this route should not exist.
+  - To get the `auth-token` do a POST request on `../api/v1/login` route passing as params `email` and `password`.
+  - To acess any other route it will need to pass as authentication an API KEY:
+  - - key: `token`
+  - - value: `auth-token`
 
 ### Filters, Paging and Sorting
 **Generals Rules:**
@@ -127,4 +127,8 @@ In order to sorting, use the following examples:
 ```
 **Sorting rules:**
   - It will always order by desc first then by asc (It will ignore the order of ASC and DESC in the URL)
-  - It will mantain the order inside the same order ('amount,description' this case it would order amount first then description)
+
+##### Final Obs:
+  - It is possible, but not necessary, to create a user passing as params `email` and `password`.
+  - It is possible to login using the default admin user bt accessing the `../api/v1/login` url.
+  - - This is just for testing the seassion on the URL. By production this route should not exist.
