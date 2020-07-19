@@ -52,7 +52,7 @@ export MYSQL_ROOT_PASSWORD=password
 export MYSQL_DATABASE=invoice_challenge
 export MYSQL_PORT=3306
 export MYSQL_ROOT_USER=root
-export SECREAT_KEY=a_random_secreat_key
+export SECREAT_KEY=a_random_secret_key
 ```
 
 #### Preparing environment
@@ -91,7 +91,7 @@ http://localhost:5000/api/v1/login
   - - password: `admin`
   - To get the `auth-token` do a POST request on `../api/v1/login` route passing as params `email` and `password`.
   - To acess any other route it will need to pass as authentication an API KEY:
-  - - key: `token`
+  - - key: token
   - - value: `auth-token`
 
 ### Filters, Paging and Sorting
@@ -130,5 +130,5 @@ In order to sorting, use the following examples:
 
 ##### Final Obs:
   - It is possible, but not necessary, to create a user passing as params `email` and `password`.
-  - It is possible to login using the default admin user bt accessing the `../api/v1/login` url.
-  - - This is just for testing the seassion on the URL. By production this route should not exist.
+  - It is possible to login using the default admin user by accessing the `../api/v1/login` url.
+  - - This is just for testing the session on the URL. By production this route should not exist.
