@@ -1,15 +1,15 @@
 import invoice_challenge.helpers.model_helper as ModelHelper
 import mysql.connector
-import os
+from os import environ
 
 class BasicModel:
     def connect_to_db(self):
         config = {
-            "user": os.environ.get("MYSQL_ROOT_USER"),
-            "password": os.environ.get("MYSQL_ROOT_PASSWORD"),
-            "host": os.environ.get("MYSQL_HOST"),
-            "port": os.environ.get("MYSQL_PORT"),
-            "database": os.environ.get("MYSQL_DATABASE")
+            "user": environ.get("MYSQL_ROOT_USER"),
+            "password": environ.get("MYSQL_ROOT_PASSWORD"),
+            "host": environ.get("MYSQL_HOST"),
+            "port": environ.get("MYSQL_PORT"),
+            "database": environ.get("MYSQL_DATABASE")
         }
         return mysql.connector.connect(**config)
 
