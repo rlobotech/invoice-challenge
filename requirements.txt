@@ -1,3 +1,6 @@
 Flask==0.12.2
 flask-restful==0.3.6
 mysql-connector==2.2.9
+pytest==5.4.3
+pyjwt==1.4.2
+Flask-Bcrypt==0.7.1
