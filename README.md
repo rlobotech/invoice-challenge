@@ -8,13 +8,13 @@ Escrever uma API RESTful que permita gerenciar um recurso chamado Invoice (Nota 
   - Atenção para utilizar os status codes do HTTP corretamente de acordo com cada operação da API
   - A API deve possuir um mecanismo de autenticação baseado em token
   - Sobre a listagem de **Invoices**:
-  -- Deve ser possível filtrar por mês, ano ou documento
-  -- Deve ser possível realizar a ordenação por mês, ano, documento ou combinações entre eles
-  -- Deve ser paginada
+  - - Deve ser possível filtrar por mês, ano ou documento
+  - - Deve ser possível realizar a ordenação por mês, ano, documento ou combinações entre eles
+  - - Deve ser paginada
   - O método **DELETE** não executa uma deleção física, somente uma deleção lógica
-  -- Ou seja, só deverá ser possível desativar uma **Invoice**
+  - - Ou seja, só deverá ser possível desativar uma **Invoice**
   - O código final deve estar versionado e publicado em um repositório no GitHub
-  -- Este repositório deve conter um arquivo `README.md` com as instruções necessárias para a execução da API
+  - - Este repositório deve conter um arquivo `README.md` com as instruções necessárias para a execução da API
 
 Domínio da entidade Invoice:
 ```sh
@@ -32,8 +32,8 @@ Domínio da entidade Invoice:
 ```
 #### Bônus
   - API rodando em container
-  - Critérios de avaliação
-#### Arquitetura e organização do projeto
+#### Critérios de avaliação
+  - Arquitetura e organização do projeto
   - Legibilidade do código
   - Utilização de padrões e boas práticas de programação
 
@@ -48,10 +48,11 @@ The following installation instructions are meant for Ubuntu distros
 Export the following environment variables:
 ```zsh
 export MYSQL_HOST=localhost
-export MYSQL_PORT=3306
-export MYSQL_ROOT_USER=root
 export MYSQL_ROOT_PASSWORD=password
 export MYSQL_DATABASE=invoice_challenge
+export MYSQL_PORT=3306
+export MYSQL_ROOT_USER=root
+export SECREAT_KEY=a_random_secreat_key
 ```
 
 #### Preparing environment
@@ -72,12 +73,26 @@ docker-compose up
 ## Using the API
 By default, the API server will run on port 5000 (it may be changed on the docker-compose.yml file).
 
-#### Routes
-
 ```zsh
-http://0.0.0.0:5000/api/v1/invoices
-http://0.0.0.0:5000/api/v1/invoices/{id}
+http://localhost:5000/api/v1/invoices
+http://localhost:5000/api/v1/invoices/{id}
+http://localhost:5000/api/v1/users
+http://localhost:5000/api/v1/login
 ```
+
+#### For route http://localhost:5000/api/v1/invoices [GET, POST]
+#### For route http://localhost:5000/api/v1/invoices/{id} [GET, PUT, DELETE]
+#### For route http://localhost:5000/api/v1/users [GET, POST]
+#### For route http://localhost:5000/api/v1/login [GET, POST]
+
+##### Obs:
+  - It is possible to create a user passing as params `email` and `password`.
+  - The user table already contains an admin user which:
+  - - email: `admin@admin`
+  - - password: `admin`
+  - To get the auth token do a POT request on ../api/v1/login route passing as params `email` and `password`.
+  - It is possible to login using the default admin user accessing the ../api/v1/login url.
+  - - This is just for testing the seassion on the URL. By production this route should not exist.
 
 ### Filters, Paging and Sorting
 **Generals Rules:**
