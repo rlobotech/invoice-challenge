@@ -7,8 +7,8 @@ class BasicModel:
         config = {
             "user": os.environ.get("MYSQL_ROOT_USER"),
             "password": os.environ.get("MYSQL_ROOT_PASSWORD"),
-            "host": "db",
-            "port": "3306",
+            "host": os.environ.get("MYSQL_HOST"),
+            "port": os.environ.get("MYSQL_PORT"),
             "database": os.environ.get("MYSQL_DATABASE")
         }
         return mysql.connector.connect(**config)

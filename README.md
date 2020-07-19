@@ -47,8 +47,10 @@ The following installation instructions are meant for Ubuntu distros
 #### Setup
 Export the following environment variables:
 ```zsh
+export MYSQL_HOST=localhost
+export MYSQL_PORT=3306
 export MYSQL_ROOT_USER=root
-export MYSQL_ROOT_PASSWORD=root
+export MYSQL_ROOT_PASSWORD=password
 export MYSQL_DATABASE=invoice_challenge
 ```
 

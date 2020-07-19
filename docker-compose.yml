@@ -4,7 +4,7 @@ services:
   invoice-challenge:
     build: .
     ports:
-    - "5000:80"
+    - "5000:5000"
     volumes:
       - .:/usr/src/app
     links:
@@ -12,13 +12,11 @@ services:
     environment:
       MYSQL_HOST: db
       MYSQL_PORT: "3306"
-      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
   db:
     image: mysql:5.7
-    ports:
-      - "32000:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
