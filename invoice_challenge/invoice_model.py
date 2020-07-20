@@ -9,6 +9,10 @@ def format_invoice_query(params):
         query += f" AND description = {params['description']}"
     if(params["amount"]):
         query += f" AND amount = {params['amount']}"
+    if(params["referenceMonth"]):
+        query += f" AND referenceMonth = {params['referenceMonth']}"
+    if(params["referenceYear"]):
+        query += f" AND referenceYear = {params['referenceYear']}"
     return ModelHelper.format_generic_query(params, query)
 
 class InvoiceModel(BasicModel):
