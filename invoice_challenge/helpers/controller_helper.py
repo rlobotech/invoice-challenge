@@ -6,8 +6,8 @@ import jwt
 
 def format_get_collection_response(data_resp, params):
     total = len(data_resp) if data_resp else 0
-    page_size = params["pageSize"] if params["pageSize"] else 100
-    page = params["page"] if params["page"] else 0
+    page_size = params.get("pageSize") if params.get("pageSize") else 100
+    page = params.get("page") if params.get("page") else 0
 
     formatted_response = {
         "data": data_resp,
