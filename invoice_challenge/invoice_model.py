@@ -4,11 +4,11 @@ import invoice_challenge.helpers.model_helper as ModelHelper
 def format_invoice_query(params):
     query = ""
     if(params["document"]):
-        query += f" AND document = '{params['document']}'"
+        query += f" AND document = {params['document']}"
     if(params["description"]):
-        query += f" AND description = '{params['description']}'"
+        query += f" AND description = {params['description']}"
     if(params["amount"]):
-        query += f" AND amount = '{params['amount']}'"
+        query += f" AND amount = {params['amount']}"
     return ModelHelper.format_generic_query(params, query)
 
 class InvoiceModel(BasicModel):

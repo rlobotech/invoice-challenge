@@ -10,7 +10,7 @@ def format_user_params(params):
 def format_user_query(params):
     query = ""
     if(params["email"]):
-        query += f" AND email = '{params['email']}'"
+        query += f" AND email = {params['email']}"
     return ModelHelper.format_generic_query(params, query)
 
 def format_user_find_query(params):
