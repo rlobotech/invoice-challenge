@@ -47,11 +47,8 @@ The following installation instructions are meant for Ubuntu distros
 #### Setup
 Export the following environment variables:
 ```zsh
-export MYSQL_HOST=localhost
 export MYSQL_ROOT_PASSWORD=password
 export MYSQL_DATABASE=invoice_challenge
-export MYSQL_PORT=3306
-export MYSQL_ROOT_USER=root
 export SECREAT_KEY=a_random_secret_key
 ```
 
@@ -89,10 +86,16 @@ http://localhost:5000/api/v1/login
   - The user table already contains an admin user which:
   - - email: `admin@admin`
   - - password: `admin`
-  - To get the `auth-token` do a POST request on `../api/v1/login` route passing as params `email` and `password`.
-  - To acess any other route it will need to pass as authentication an API KEY:
+  - To get the `auth-token` do a POST request on `../api/v1/login` route passing as params: `email` and `password`.
+  ```zsh
+  {
+    "email": "admin@admin",
+    "password": "admin"
+  }
+  ```
+  - To acess any other route it will need to pass for authentication an API KEY:
   - - key: token
-  - - value: `auth-token`
+  - - value: `auth-token` (generated from the POST request on login route)
 
 ### Filters, Paging and Sorting
 **Generals Rules:**
@@ -132,3 +135,44 @@ In order to sorting, use the following examples:
   - It is possible, but not necessary, to create a user passing as params `email` and `password`.
   - It is possible to login using the default admin user by accessing the `../api/v1/login` url.
   - - This is just for testing the session on the URL. By production this route should not exist.
+
+
+## Running Tests
+  - Tests are run by the command `pytest test/` on the root directory of the repo `../invoice-challenge`
+  - - It is necessary first to run a docker container that will contains the database for the tests:
+  ```zsh
+  docker run --name mysql-invoice -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7`
+  ```
+  
+#### Requirements
+  - Docker
+  - Python 3.6.10
+
+#### Preparing environment
+
+1. Install pyenv
+```zsh
+curl https://pyenv.run | bash
+```
+2. On the root directory of the repo `../invoice-challenge`, install python 3.6.10:
+```zsh
+pyenv install 3.6.10
+```
+3. Use the right version of the python by:
+```zsh
+pyenv local 3.6.10
+```
+4. Install the requirements by:
+```zsh
+pip install -r requirements.txt
+```
+5. Run docker that will contains the database for tests:
+```zsh
+docker run --name mysql-invoice -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7`
+```
+6. Run tests:
+```zsh
+pytest test/
+```
+7. **You are ready to go!**
+
