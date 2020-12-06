@@ -30,13 +30,6 @@ Domínio da entidade Invoice:
     DeactiveAt: DATETIME
 }
 ```
-#### Bônus
-  - API rodando em container
-#### Critérios de avaliação
-  - Arquitetura e organização do projeto
-  - Legibilidade do código
-  - Utilização de padrões e boas práticas de programação
-
 ## Installation
 The following installation instructions are meant for Ubuntu distros
 
